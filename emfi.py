@@ -12,7 +12,7 @@ class EMFIScannerGUI:
     def __init__(self, root):
         self.root = root
         self.root.title("EMFI Scanner Control - Ender 3 S1 Pro")
-        self.root.geometry("1400x900")
+        self.root.geometry("3000x2500")
         
         # Configuration parameters
         self.chip_width = tk.DoubleVar(value=10.0)
@@ -666,16 +666,6 @@ Results (from {optimal_location['total']} pulses):
   Nothing:  {optimal_location['nothing']} ({optimal_location['nothing']/optimal_location['total']*100:.1f}%)
 
 Score: {optimal_location['score']:.2f}
-
-Reasoning:
-This location was selected based on a scoring algorithm that:
-  • Prioritizes high glitch success rate
-  • Penalizes crash occurrences (crashes are less useful than glitches)
-  • Considers neighboring locations for consistency
-  • Evaluates the glitch-to-crash ratio
-
-The optimal location should provide the most reliable glitching behavior
-with minimal risk of causing unrecoverable crashes.
 
 ═══════════════════════════════════════════════════════════════
 
