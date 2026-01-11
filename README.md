@@ -7,7 +7,7 @@ https://rossmarks.uk/blog/cheap-emfi-mapping/
 definitely check out the article above since its a great read and has been a huge help. 
 
 # How to use
-just run the emfi.py file and then set all of you parameters in the dashboard as described below. If you get an error saying that the program cannot open the serial port, you might have to run `sudo chmod 666 your_serial_port`. For me, this looks like running `sudo chmod 666 dev/ttyUSB0` when I plug in the printer. 
+just run the emfi_gui.py file and then set all of you parameters in the dashboard as described below. If you get an error saying that the program cannot open the serial port, you might have to run `sudo chmod 666 your_serial_port`. For me, this looks like running `sudo chmod 666 dev/ttyUSB0` when I plug in the printer. 
 # Dashboard
 ![alt text](https://github.com/Jewber11/EMFI_Glitching/blob/main/EMFI_Dashboard.png "EMFI Software Dashboard")
 
@@ -15,7 +15,7 @@ The dashboard features many nice features like being able to connect to the prin
 
 1. connect to printer and set baud rate (top right)
 2. set the probe tip to the bottom left corner of the chip you want to probe and set it as the origin
-3. enter your chip and probe dimesions as well as other glitching parameters
+3. move the probe to the top left of the chip and confirm it
 4. calculate the grid
 5. start the scan
 6. evaluate the output
@@ -28,3 +28,8 @@ The outputs on the dashboard include a real-time 3d location on the top graph an
 Once the whole chip has been scanned, the program will output a heat map per z-axis step that looks like this:
 
 ![alt text](https://github.com/Jewber11/EMFI_Glitching/blob/main/EMFI_simulated_heatmap.png "Simulate glitch heatmap")
+
+# TODO 
+- implement target serial recieving
+- implement glitch detection when using faulty cat instead of simulation
+- add a way to automatically go to the optimal location determined by the scan and just glitch there
