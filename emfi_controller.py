@@ -291,11 +291,11 @@ class EMFIController:
         
         try:
             # First disarm to ensure clean state
-            self.send_emfi_command("[d]")
+            self.send_emfi_command("d")
             time.sleep(0.1)
             
             # Arm the device
-            self.send_emfi_command("[a]")
+            self.send_emfi_command("a")
             time.sleep(0.1)
             
             return True, "FaultyCat armed successfully"
@@ -308,7 +308,7 @@ class EMFIController:
             return False, "EMFI device not connected"
         
         try:
-            self.send_emfi_command("[d]")
+            self.send_emfi_command("d")
             time.sleep(0.1)
             return True, "FaultyCat disarmed successfully"
         except Exception as e:
@@ -323,7 +323,7 @@ class EMFIController:
         if self.emfi_connected:
             try:
                 # Send pulse command to FaultyCat
-                self.send_emfi_command("[p]")
+                self.send_emfi_command("p")
                 time.sleep(0.01)  # Small delay after pulse
             except Exception as e:
                 print(f"Error triggering FaultyCat pulse: {e}")
