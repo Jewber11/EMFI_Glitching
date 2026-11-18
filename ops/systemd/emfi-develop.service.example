@@ -1,0 +1,23 @@
+[Unit]
+Description=EMFI Develop service
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+User=lab
+Group=lab
+WorkingDirectory=/home/lab/EM-Architecture/develop
+Environment="PATH=/home/lab/EM-Architecture/.venv/bin:/home/lab/.cargo/bin:/usr/local/bin:/usr/bin:/bin"
+Environment="EMFI_PROJECTS_ROOT=/home/lab/emfi-projects"
+ExecStart=/home/lab/EM-Architecture/.venv/bin/uvicorn develop.main:app --host 127.0.0.1 --port 8002
+Restart=on-failure
+RestartSec=2
+NoNewPrivileges=true
+PrivateTmp=true
+ProtectSystem=full
+ProtectHome=read-only
+ReadWritePaths=/home/lab/emfi-projects
+
+[Install]
+WantedBy=multi-user.target

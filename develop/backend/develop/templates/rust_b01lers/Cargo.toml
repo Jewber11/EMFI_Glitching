@@ -1,0 +1,18 @@
+[package]
+name = "glitch-target"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+# b01lers HAL for MSPM0L2228 — replace with the actual crate path/git URL
+# from b01lers/ectf-2026 once available.
+# b01lers-mspm0-hal = { git = "https://github.com/b01lers/...", branch = "main" }
+
+cortex-m = "0.7"
+cortex-m-rt = "0.7"
+
+[profile.release]
+opt-level = "z"
+lto = true
+codegen-units = 1
+debug = true       # keep symbols for disassembly

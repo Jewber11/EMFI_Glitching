@@ -1,0 +1,47 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+*.egg
+.venv/
+venv/
+env/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+build/
+dist/
+
+# Node
+node_modules/
+.svelte-kit/
+.vite/
+
+# Editor
+.idea/
+.vscode/
+*.swp
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Local config
+.env
+.env.local
+
+# Runtime artifacts
+*.log
+develop/logs/
+control/logs/
+
+# Generated artifacts (intentionally not generated until apps are built out)
+protocol/openapi/control.yaml
+protocol/openapi/develop.yaml
+
+# Reference-only previous implementation. Kept locally for carry-forward
+# context but excluded from this repo. Clone separately if needed:
+#   git clone https://github.com/ladderlogix/old-em-setup
+old-em-setup/
+
+.tools/

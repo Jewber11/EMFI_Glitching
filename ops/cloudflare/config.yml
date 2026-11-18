@@ -1,0 +1,26 @@
+# Example cloudflared locally-managed tunnel config.
+#
+# Install path: /etc/cloudflared/config.yml
+# Replace the tunnel UUID and credentials-file path with values created by:
+#   cloudflared tunnel create emfi-remote
+#   cloudflared tunnel route dns emfi-remote emfi.ics.red
+#
+# Security: publishing this hostname is not enough. Configure Cloudflare Access
+# for emfi.ics.red before starting the tunnel. Control owns dangerous hardware
+# and must not be reachable anonymously.
+
+tunnel: 00000000-0000-0000-0000-000000000000
+credentials-file: /etc/cloudflared/00000000-0000-0000-0000-000000000000.json
+
+loglevel: info
+transport-loglevel: warn
+
+ingress:
+  - hostname: emfi.ics.red
+    service: http://127.0.0.1:8080
+    originRequest:
+      connectTimeout: 10s
+      noTLSVerify: false
+
+  # Positive security model: only the hostname above is exposed.
+  - service: http_status:404

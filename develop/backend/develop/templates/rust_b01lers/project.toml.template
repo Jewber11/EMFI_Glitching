@@ -1,0 +1,6 @@
+name = "{{ project_name }}"
+language = "rust"
+target = "mspm0l2228"
+hal = "b01lers"
+created_at = "{{ created_at }}"
+description = "{{ description }}"

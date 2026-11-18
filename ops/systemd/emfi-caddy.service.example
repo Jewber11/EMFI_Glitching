@@ -1,0 +1,20 @@
+[Unit]
+Description=Local Caddy reverse proxy for EMFI
+After=network-online.target emfi-control.service emfi-develop.service
+Wants=network-online.target
+
+[Service]
+Type=notify
+User=caddy
+Group=caddy
+ExecStart=/usr/bin/caddy run --environ --config /etc/caddy/emfi.Caddyfile
+ExecReload=/usr/bin/caddy reload --config /etc/caddy/emfi.Caddyfile --force
+TimeoutStopSec=5s
+LimitNOFILE=1048576
+PrivateTmp=true
+ProtectSystem=full
+ProtectHome=true
+NoNewPrivileges=true
+
+[Install]
+WantedBy=multi-user.target

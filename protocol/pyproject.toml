@@ -1,0 +1,15 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "emfi-protocol"
+version = "0.1.0"
+description = "Shared Pydantic models and OpenAPI specs for the EMFI research platform"
+requires-python = ">=3.11"
+dependencies = [
+    "pydantic>=2.6",
+]
+
+[tool.setuptools.packages.find]
+include = ["emfi_protocol*"]

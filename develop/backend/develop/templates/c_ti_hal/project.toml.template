@@ -1,0 +1,6 @@
+name = "{{ project_name }}"
+language = "c"
+target = "mspm0l2228"
+hal = "ti"
+created_at = "{{ created_at }}"
+description = "{{ description }}"

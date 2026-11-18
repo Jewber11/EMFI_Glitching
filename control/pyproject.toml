@@ -1,0 +1,38 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "control"
+version = "0.1.0"
+description = "EMFI Control: hardware-singleton service for the lab rig"
+requires-python = ">=3.11"
+dependencies = [
+    "fastapi>=0.110",
+    "uvicorn[standard]>=0.27",
+    "pydantic>=2.6",
+    "pyserial>=3.5",
+    "emfi-protocol",
+]
+
+[project.optional-dependencies]
+hw = [
+    "chipshover",
+    "chipshouter",
+    "donjon-scaffold>=0.7",
+]
+dev = [
+    "pytest>=8.0",
+    "pytest-asyncio>=0.23",
+    "httpx>=0.27",
+]
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.pytest.ini_options]
+asyncio_mode = "auto"
+markers = [
+    "hw: tests that touch real hardware (skipped by default)",
+]
+addopts = "-m 'not hw'"
