@@ -1,5 +1,4 @@
 import type { WsEvent } from '$lib/types';
-import { base } from '$app/paths';
 
 type MessageHandler = (event: WsEvent) => void;
 
@@ -15,7 +14,7 @@ class DevelopWs {
     if (this.ws && this.ws.readyState <= WebSocket.OPEN) return;
 
     const proto = location.protocol === 'https:' ? 'wss' : 'ws';
-    this.ws = new WebSocket(`${proto}://${location.host}${base}/ws`);
+    this.ws = new WebSocket(`${proto}://${location.host}/api/develop/ws`);
 
     this.ws.onopen = () => {
       this.reconnectDelay = 1000;

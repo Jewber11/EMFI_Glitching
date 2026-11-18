@@ -3,7 +3,7 @@
   import { browser } from '$app/environment';
   import { positionStore } from '$lib/stores/position';
   import { armStore } from '$lib/stores/arm';
-  import { home, moveAbs, saveCurrentFixture, setOrigin, setTopRight } from '$lib/api/control';
+  import { errorDetail, home, moveAbs, saveCurrentFixture, setOrigin, setTopRight } from '$lib/api/control';
   import { toasts } from '$lib/stores/toast';
   import JogPad from '$lib/components/JogPad.svelte';
   import Scene3D from '$lib/components/Scene3D.svelte';
@@ -74,10 +74,10 @@
       await home();
       homed = true;
       originX = originY = originZ = topRightX = topRightY = null;
-      toasts.info('Ender 3 homed; choose die origin');
+      toasts.info('X/Y homed; Z remains unhomed');
       step = 2;
-    } catch {
-      toasts.error('home failed');
+    } catch (err) {
+      toasts.error(`Home failed: ${errorDetail(err)}`, { ttl: 0 });
     } finally {
       busy = false;
     }
@@ -209,9 +209,8 @@
       {#if step === 1}
         <h3>Home the stage</h3>
         <p>
-          Home Ender 3 before assigning die endpoints. Homing gives the
-          bolted-down board a repeatable machine frame; the saved die map can
-          be restored after future homes.
+          Home Ender 3 X and Y before assigning die endpoints. Z remains
+          unhomed; its position and saved Z coordinates are not repeatable.
         </p>
 
         <div class="panel">

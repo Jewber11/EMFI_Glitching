@@ -1,30 +1,13 @@
-/* MSPM0L2228 memory layout — fill in from TI's reference linker script.
- * This is a placeholder; the V1 build-out should replace with the real
- * memory regions from the TI MSPM0 SDK.
- */
-
-MEMORY
-{
-    FLASH (rx)  : ORIGIN = 0x00000000, LENGTH = 256K
-    SRAM  (rwx) : ORIGIN = 0x20000000, LENGTH = 32K
+/* Standalone MSPM0L2228 image. Change for a bootloader application. */
+MEMORY {
+    FLASH (rx) : ORIGIN = 0x00000000, LENGTH = 256K
+    SRAM (rwx) : ORIGIN = 0x20200000, LENGTH = 32K
 }
-
 ENTRY(Reset_Handler)
-
-SECTIONS
-{
-    .text : {
-        KEEP(*(.isr_vector))
-        *(.text*)
-        *(.rodata*)
-    } > FLASH
-
-    .data : {
-        *(.data*)
-    } > SRAM AT > FLASH
-
-    .bss : {
-        *(.bss*)
-        *(COMMON)
-    } > SRAM
+_stack_top = ORIGIN(SRAM) + LENGTH(SRAM);
+SECTIONS {
+    .text : { KEEP(*(.isr_vector)) *(.text*) *(.rodata*) . = ALIGN(4); } > FLASH
+    .data : { . = ALIGN(4); _sdata = .; *(.data*) . = ALIGN(4); _edata = .; } > SRAM AT > FLASH
+    _sidata = LOADADDR(.data);
+    .bss (NOLOAD) : { . = ALIGN(4); _sbss = .; *(.bss*) *(COMMON) . = ALIGN(4); _ebss = .; } > SRAM
 }

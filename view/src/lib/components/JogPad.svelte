@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { moveRel, home } from '$lib/api/control';
+  import { errorDetail, moveRel, home } from '$lib/api/control';
   import { toasts } from '$lib/stores/toast';
 
   let step = 1.0;
@@ -15,9 +15,9 @@
   async function doHome() {
     try {
       await home();
-      toasts.info('Homing…');
-    } catch {
-      toasts.error('Home failed');
+      toasts.info('Homing complete (Ender 3: X/Y only; Z unhomed)');
+    } catch (err) {
+      toasts.error(`Home failed: ${errorDetail(err)}`, { ttl: 0 });
     }
   }
 </script>
@@ -33,7 +33,7 @@
       <button on:click={() => jog('Y', 1)}>Y+</button>
       <div></div>
       <button on:click={() => jog('X', -1)}>X-</button>
-      <button class="home-btn" on:click={doHome} title="Home all axes">H</button>
+      <button class="home-btn" on:click={doHome} title="Home stage (Ender 3: X/Y only)">H</button>
       <button on:click={() => jog('X', 1)}>X+</button>
       <div></div>
       <button on:click={() => jog('Y', -1)}>Y-</button>

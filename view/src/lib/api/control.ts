@@ -13,6 +13,11 @@ export class ApiError extends Error {
   }
 }
 
+export function errorDetail(err: unknown): string {
+  if (err instanceof ApiError && typeof err.body?.detail === 'string') return err.body.detail;
+  return err instanceof Error ? err.message : 'Unknown error';
+}
+
 async function request(method: string, path: string, body?: unknown) {
   const url = `${CONTROL_URL}${path}`;
   log.info(`${method} ${path}`);

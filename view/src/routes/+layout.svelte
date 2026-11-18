@@ -67,7 +67,7 @@
       <a href="/runs" class:active={currentPath === '/runs'}>Run History</a>
       <a href="/heatmap" class:active={currentPath === '/heatmap'}>Heatmap</a>
       <a href="/firmware" class:active={currentPath === '/firmware'}>Firmware</a>
-      <a href={DEVELOP_SITE_URL} target="_blank" rel="noreferrer">Develop ↗</a>
+      <a href={DEVELOP_SITE_URL}>Code &amp; Build</a>
     </nav>
 
     <div class="status-strip" aria-label="Device status">

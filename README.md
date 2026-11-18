@@ -16,7 +16,9 @@ python3 -m venv .venv
 
 This workspace includes a local Node.js installation under `.tools/node`; `start.sh` uses it if npm is absent from PATH.
 
-Open <http://127.0.0.1:8003>. Control listens on port 8001 and Develop on 8002. `start.sh` binds locally. The firmware tools and MSPM0 development features in Develop still require their target-specific toolchains.
+Open <http://127.0.0.1:8003>. `start.sh` builds both interfaces and runs one local server. Open **Code & Build** to create a C or Rust project, edit its source, build, and flash through the configured Pico probe. Existing projects keep their original files; newly created C projects include standalone startup code. Toolchains are still required. The templates are minimal standalone programs, not eCTF bootloader applications; adapt them for your target and wiring.
+
+The scanner interface from `EMFI_STMF32` has not yet been ported. The current dashboard retains the existing campaign workflow; AD2 waveform capture and ChipWhisperer-specific features are not available for this rig.
 
 For Pico Debug Probe and 2026 eCTF firmware flashing, see [Pico flashing setup](docs/pico-flashing.md).
 

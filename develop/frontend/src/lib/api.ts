@@ -2,9 +2,7 @@ import type {
   Project, BuildArtifact, AssemblyListing, GlitchTarget,
   FileTreeNode, Template, GitLogEntry
 } from '$lib/types';
-import { base } from '$app/paths';
-
-const API = base;
+const API = import.meta.env.VITE_DEVELOP_API || '/api/develop';
 const CONTROL = import.meta.env.VITE_CONTROL_URL || '/api/control';
 
 export async function flashFirmwareFile(path: string, mode: string, name: string) {

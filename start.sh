@@ -12,18 +12,7 @@ if ! command -v npm >/dev/null; then
   echo 'Node.js and npm are required; see README.md.' >&2
   exit 1
 fi
-cleanup() {
-  trap - EXIT INT TERM
-  kill "${pids[@]}" 2>/dev/null || true
-  wait "${pids[@]}" 2>/dev/null || true
-}
-pids=()
-trap cleanup EXIT INT TERM
-.venv/bin/uvicorn control.main:app --host 127.0.0.1 --port 8001 &
-pids+=("$!")
-.venv/bin/uvicorn develop.main:app --host 127.0.0.1 --port 8002 &
-pids+=("$!")
-(cd view && npm run dev -- --host 127.0.0.1) &
-pids+=("$!")
+(cd develop/frontend && DEVELOP_BASE_PATH=/develop npm run build)
+(cd view && npm run build)
 echo 'Dashboard: http://127.0.0.1:8003/'
-wait -n "${pids[@]}"
+exec .venv/bin/uvicorn emfi_app:app --host 127.0.0.1 --port 8003

@@ -6,7 +6,7 @@
 
 export const CONTROL_URL = import.meta.env.VITE_CONTROL_URL ?? '/api/control';
 export const DEVELOP_URL = import.meta.env.VITE_DEVELOP_URL ?? '/api/develop';
-export const DEVELOP_SITE_URL = import.meta.env.VITE_DEVELOP_SITE_URL ?? (typeof window === 'undefined' ? 'http://localhost:8002/' : `${window.location.protocol}//${window.location.hostname}:8002/`);
+export const DEVELOP_SITE_URL = import.meta.env.VITE_DEVELOP_SITE_URL ?? '/develop/';
 
 function absoluteUrl(httpUrl: string): URL {
   if (typeof window !== 'undefined') {

@@ -198,7 +198,7 @@ async def call_adapter(worker: DeviceWorker, fn: Callable, *args: Any, **kwargs:
         return await worker.call(fn, *args, **kwargs)
     except NotImplementedError as exc:
         raise HTTPException(status_code=501, detail=f"Adapter not implemented: {exc}")
-    except (RuntimeError, ValueError) as exc:
+    except (RuntimeError, ValueError, TimeoutError) as exc:
         raise HTTPException(status_code=500, detail=str(exc))
 
 

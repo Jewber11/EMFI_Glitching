@@ -14,6 +14,7 @@ from pathlib import Path
 from fastapi import FastAPI, Request
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.staticfiles import StaticFiles
+from starlette.exceptions import HTTPException
 
 from develop.auth import install_auth_middleware
 from develop.config import (
@@ -44,6 +45,21 @@ from develop.routers import (
 
 log_file = setup_logging()
 log = logging.getLogger(__name__)
+
+
+class SPAStaticFiles(StaticFiles):
+    async def get_response(self, path, scope):
+        try:
+            response = await super().get_response(path, scope)
+            if response.status_code != 404:
+                return response
+        except HTTPException as exc:
+            if exc.status_code != 404:
+                raise
+        # Only browser navigation gets the SPA shell; missing assets stay 404.
+        if scope['method'] in ('GET', 'HEAD') and '.' not in Path(path).name:
+            return await super().get_response('index.html', scope)
+        raise HTTPException(status_code=404)
 
 
 def static_build_dir() -> Path:
@@ -147,7 +163,7 @@ def create_app() -> FastAPI:
     # Serve the built SvelteKit frontend if present.
     static_dir = static_build_dir()
     if static_dir.exists():
-        app.mount("/", StaticFiles(directory=str(static_dir), html=True), name="ui")
+        app.mount("/", SPAStaticFiles(directory=str(static_dir), html=True), name="ui")
 
     return app
 
